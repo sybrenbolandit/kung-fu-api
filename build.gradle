@@ -37,3 +37,8 @@ java {
     targetCompatibility = JavaVersion.toVersion("11")
 }
 
+run {
+    jvmArgs "-agentlib:native-image-agent=" +
+            "config-merge-dir=src/main/resources/META-INF/native-image/nl.sybrenbolandit.kungfu/kung-fu-api/," +
+            "access-filter-file=reflection-filter/access-filter.json"
+}
