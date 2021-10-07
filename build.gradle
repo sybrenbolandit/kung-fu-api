@@ -1,9 +1,9 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("io.micronaut.application") version "1.5.0"
+    id("io.micronaut.application") version "2.0.6"
 }
 
-version = "0.1"
+version = "1.0.0"
 group = "nl.sybrenbolandit.kungfu"
 
 repositories {
@@ -24,8 +24,10 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
+    compileOnly("org.graalvm.nativeimage:svm")
     implementation("io.micronaut:micronaut-validation")
-
+//    implementation("io.micronaut.rxjava2:micronaut-rxjava2")
+    implementation("io.projectreactor:reactor-core")
 }
 
 
@@ -37,8 +39,7 @@ java {
     targetCompatibility = JavaVersion.toVersion("11")
 }
 
-run {
-    jvmArgs "-agentlib:native-image-agent=" +
-            "config-merge-dir=src/main/resources/META-INF/native-image/nl.sybrenbolandit.kungfu/kung-fu-api/," +
-            "access-filter-file=reflection-filter/access-filter.json"
+nativeImage {
+    args('--verbose')
+    imageName('kung-fu-api')
 }
