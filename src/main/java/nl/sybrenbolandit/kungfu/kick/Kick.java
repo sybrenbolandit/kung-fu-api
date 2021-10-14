@@ -1,5 +1,8 @@
 package nl.sybrenbolandit.kungfu.kick;
 
+import io.micronaut.core.annotation.Introspected;
+
+@Introspected
 public class Kick {
 
     private String name;
