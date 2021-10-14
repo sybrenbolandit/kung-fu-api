@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("io.micronaut.application") version "1.5.0"
+    id("org.openrewrite.rewrite") version "5.12.0"
 }
 
 version = "0.1"
@@ -25,7 +26,7 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-
+    rewrite("org.openrewrite.recipe:rewrite-micronaut:1.3.0")
 }
 
 
@@ -41,4 +42,8 @@ run {
     jvmArgs "-agentlib:native-image-agent=" +
             "config-merge-dir=src/main/resources/META-INF/native-image/nl.sybrenbolandit.kungfu/kung-fu-api/," +
             "access-filter-file=reflection-filter/access-filter.json"
+}
+
+rewrite {
+    activeRecipe("org.openrewrite.java.micronaut.Micronaut2to3Migration")
 }

@@ -2,6 +2,7 @@ package nl.sybrenbolandit.kungfu.kick;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.reactivex.Single;
 
 @Controller("/kicks")
 public class KickController {
@@ -13,7 +14,7 @@ public class KickController {
     }
 
     @Get("/random")
-    public Kick randomKick() {
-        return kickService.randomKick();
+    public Single<Kick> randomKick() {
+        return Single.just(kickService.randomKick());
     }
 }
